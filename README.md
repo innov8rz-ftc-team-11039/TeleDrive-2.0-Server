@@ -3,7 +3,7 @@
 
 This all-in-one app that not only allows you to drive your robot remotely but also includes the capability for low latency video feed with group audio call. All of this with end-to-end encryption! If you used TeleDrive 1.0 then you may remember having to use Parsec for video, Discord for audio, and the TeleDrive executables for gamepad. This version simplifies the setup with ease of use. Also, no need to set up port forwarding on your router anymore!
 
-# Server Side Code Usage
+# Server Side Usage and Setup
 
 To clone and run this repository you'll need [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
