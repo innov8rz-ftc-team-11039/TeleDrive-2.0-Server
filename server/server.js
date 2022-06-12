@@ -31,7 +31,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-const HTTPS_PORT = 443; //default port for https is 443
+const HTTPS_PORT = 8000; //default port for https is 443
 const fs = require('fs');
 const https = require('https');
 const WebSocket = require('ws');
@@ -56,8 +56,10 @@ httpsServer.listen(HTTPS_PORT);
 const wss = new WebSocketServer({ server: httpsServer });
 
 wss.on('connection', function (ws, req) {
+  console.log("New connection: " + req.connection.remoteAddress);
   var isFirstMessageFromClient = true;
   ws.on('message', function (message) {
+    console.log("Message: " + message)
     // Broadcast any received message to all clients
     if (isFirstMessageFromClient) {
       // Check for special passcode/key for security purposes.
@@ -85,11 +87,15 @@ wss.on('connection', function (ws, req) {
     }
 
     if (!message.includes("4C4C4544-0032-3610-8044-B5C04F305932")) {
+      console.log("Broadcasting: " + message)
       wss.broadcast(message);
     }
   });
 
-  ws.on('error', () => ws.close());
+  ws.on('error', function (e) {
+    console.log("Error: " + e + ". Closing Connection");
+    ws.close();
+  });
 });
 
 // Websocket broadcast function to send to all clients
